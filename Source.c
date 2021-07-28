@@ -44,13 +44,13 @@ lv_obj_t* divide_btn;
 lv_obj_t* in_label;
 lv_obj_t* calc_container;
 
-
+//arrays for determining PEMDAS operations
 double numbers_[100];
 char operations_[100];
 int tracker = 0;
 
+//buffer holding the value
 char buff1[256]="";
-char temp[256]="";
 
 void calculator();
 void createCalLayout();
@@ -80,6 +80,7 @@ void updateLabel_(char* str);
 void resetCalc();
 void createCalcContainer();
 
+//creates container holding the Calc value
 void createCalcContainer()
 {
     calc_container = lv_cont_create(lv_scr_act(), NULL);
@@ -94,6 +95,7 @@ void createCalcContainer()
     lv_obj_set_style_local_bg_opa(calc_container, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_60);
 }
 
+//resets the calc, called in AC button
 void resetCalc()
 {
     lv_label_set_text(in_label, "0");
@@ -101,7 +103,7 @@ void resetCalc()
     strcpy(buff1, text);
 }
 
-//Figure out a way to prevent changing buffer when it reaches size 6
+//updates the label, only allows numbers of 6 places
 void updateLabel_(char* str)
 { 
     if (strlen(str) <= 6)
@@ -111,7 +113,7 @@ void updateLabel_(char* str)
     }
 }
 
-
+//creates the createNumLabel in the main Container
 void createNumLabel()
 {
     static lv_style_t style_label_bg;
@@ -131,7 +133,7 @@ void createNumLabel()
     lv_label_set_text(in_label, "0");
 }
 
-
+//creates all the label buttons of this type
 lv_obj_t* createLabelButton2(int x, int y, int sizeX, int sizeY, const char* text)
 {
     lv_obj_t* obj = lv_btn_create(lv_scr_act(), NULL);
@@ -157,6 +159,7 @@ lv_obj_t* createLabelButton2(int x, int y, int sizeX, int sizeY, const char* tex
     return obj;
 }
 
+//this is the most important function. calculator(); is called in main Simulator and shows the calculator with everything that is needed. 
 void calculator()
 {
     imageBackground();
@@ -166,11 +169,13 @@ void calculator()
     createNumLabel();  
 }
 
+//listens to new button clicks to update the value in the calculator container
 void taskListener()
 {
     updateLabel_(buff1);
 }
 
+//sets the callback events for each button, ex button 2 will be set to appending 2 to the end of the current calc container value
 void setButtonEvents()
 {
     lv_obj_set_event_cb(period_, eventButtonPERIOD);
@@ -193,6 +198,7 @@ void setButtonEvents()
     lv_obj_set_event_cb(equal_btn, eventButtonEQ);   
 }
 
+//creates the buttons and sets them in the screen
 void createCalLayout()
 {
     int w = 45;
@@ -227,6 +233,8 @@ void createCalLayout()
 
 }
 
+//Callback Events of each button
+//set the text, append to buffer and update the label
 
 void eventButton0(lv_obj_t* obj, lv_event_t event)
 {
@@ -238,6 +246,7 @@ void eventButton0(lv_obj_t* obj, lv_event_t event)
     }
 
 }
+
 void eventButton1(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -247,6 +256,7 @@ void eventButton1(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton2(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -256,6 +266,7 @@ void eventButton2(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton3(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1)<7))
@@ -265,6 +276,7 @@ void eventButton3(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton4(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -274,6 +286,7 @@ void eventButton4(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton5(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -283,6 +296,7 @@ void eventButton5(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton6(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -292,6 +306,7 @@ void eventButton6(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton7(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -301,6 +316,7 @@ void eventButton7(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton8(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -310,6 +326,7 @@ void eventButton8(lv_obj_t* obj, lv_event_t event)
         taskListener();
     }
 }
+
 void eventButton9(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1) < 7))
@@ -319,6 +336,7 @@ void eventButton9(lv_obj_t* obj, lv_event_t event)
         taskListener();       
     }
 }
+
 void eventButtonAC(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED)
@@ -328,6 +346,7 @@ void eventButtonAC(lv_obj_t* obj, lv_event_t event)
     }
 }
 
+//Deletes the index of the value of array
 void delete_index(double* arr, int size, int index)
 {
     int c = 0;
@@ -351,6 +370,7 @@ void delete_index(double* arr, int size, int index)
     arr = temparr;   
 }
 
+//deletes the value of the index array
 void delete_index_char(char* arr, int size, int index)
 {
     int c = 0;
@@ -379,6 +399,9 @@ void delete_index_char(char* arr, int size, int index)
         operations_[i] = temparr[i];
     }    
 }
+
+//Callbacks for operations
+//Equals button is the most complex
 
 void eventButtonEQ(lv_obj_t* obj, lv_event_t event)
 {
@@ -518,6 +541,7 @@ void eventButtonADD(lv_obj_t* obj, lv_event_t event)
     }
 
 }
+
 void eventButtonMINUS(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && atof(buff1) != 0)
@@ -538,6 +562,7 @@ void eventButtonMINUS(lv_obj_t* obj, lv_event_t event)
         strcpy(buff1, "");
     }
 }
+
 void eventButtonMULTIPLY(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && atof(buff1) != 0)
@@ -558,6 +583,7 @@ void eventButtonMULTIPLY(lv_obj_t* obj, lv_event_t event)
         strcpy(buff1, "");
     }
 }
+
 void eventButtonDIVIDE(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && atof(buff1) != 0)
@@ -578,6 +604,7 @@ void eventButtonDIVIDE(lv_obj_t* obj, lv_event_t event)
         strcpy(buff1, "");
     }
 }
+
 void eventButtonNEG(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED)
@@ -596,6 +623,7 @@ void eventButtonNEG(lv_obj_t* obj, lv_event_t event)
         lv_label_set_text(in_label, buff1);
     }
 }
+
 void eventButtonPERIOD(lv_obj_t* obj, lv_event_t event)
 {
     if (event == LV_EVENT_CLICKED && (strlen(buff1)<6))
