@@ -1,15 +1,10 @@
-﻿#include "../../../lv_examples.h"
+#include "../../../lv_examples.h"
 #include "stdio.h"
 #include "time.h"
 #include "string.h"
 #include "math.h"
 
-/*
-    Look how to assign priority PEMDAS
-
-*/
-
-
+//declarations of fonts
 LV_FONT_DECLARE(digital_12);
 LV_FONT_DECLARE(digital_18);
 LV_FONT_DECLARE(digital_24);
@@ -27,6 +22,7 @@ int operation;
 lv_task_t* operations;
 lv_task_t* numbers;
 
+//creations of lv_obj_t button objects
 lv_obj_t* period_;
 lv_obj_t* zero_;
 lv_obj_t* one_btn;
