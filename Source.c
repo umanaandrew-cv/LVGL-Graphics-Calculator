@@ -1,5 +1,7 @@
 /*
     C file authored by Andrew Umana
+    Creates a calculator using the LVGL graphics library. Buttons and operations are all 
+    executable, with their own specified event handlers. 
 */
 
 #include "../../../lv_examples.h"
