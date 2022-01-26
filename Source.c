@@ -1,3 +1,7 @@
+/*
+    C file authored by Andrew Umana
+*/
+
 #include "../../../lv_examples.h"
 #include "stdio.h"
 #include "time.h"
